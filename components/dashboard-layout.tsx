@@ -20,6 +20,7 @@ import {
   ChevronDown,
   ChevronRight,
   Tag,
+  Settings,
 } from "lucide-react";
 
 import {
@@ -74,6 +75,11 @@ const navigationItems = [
     title: "ბანერ-სლაიდერი",
     href: "/dashboard/banner-slider",
     icon: SlidersHorizontal,
+  },
+  {
+    title: "სეთინგები",
+    href: "/dashboard/settings",
+    icon: Settings,
   },
 ];
 

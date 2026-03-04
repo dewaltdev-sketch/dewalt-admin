@@ -7,6 +7,22 @@ import { API_ROUTES } from "./apiRoutes";
 
 import { cookies } from "next/headers";
 
+type RefreshResponse = {
+  token: string;
+  message: string;
+  refreshToken: string;
+  tokenExpiresAt: Date;
+  admin: {
+    _id: string;
+    username: string;
+    facilityId: string | null;
+  };
+};
+
+// Deduplicate concurrent refresh calls (per refresh token) so we don't
+// send multiple refresh requests while one is already in-flight.
+const refreshPromises = new Map<string, Promise<RefreshResponse>>();
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
@@ -124,7 +140,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       console.log(
         "token before refresh check",
         token,
-        new Date(token.tokenExpiresAt).getTime()
+        new Date(token.tokenExpiresAt).getTime(),
+        Date.now()
       );
 
       // Check if access token is expired
@@ -148,30 +165,32 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             return null;
           }
 
-          // Forward refresh token in Cookie header for server-side request
-          const response = await createApiClient(API_ROUTES.REFRESH_TOKEN).post<
-            Record<string, never>,
-            {
-              token: string;
-              message: string;
-              refreshToken: string;
-              tokenExpiresAt: Date;
-              admin: {
-                _id: string;
-                username: string;
-                facilityId: string | null;
-              };
-            }
-          >(
-            {},
-            {
-              headers: {
-                Cookie: `refresh_token=${refreshToken}`,
-              },
-            }
-          );
+          const existing = refreshPromises.get(refreshToken);
+          const refreshPromise =
+            existing ??
+            (async () => {
+              const p = createApiClient(API_ROUTES.REFRESH_TOKEN).post<
+                Record<string, never>,
+                RefreshResponse
+              >(
+                {},
+                {
+                  headers: {
+                    Cookie: `refresh_token=${refreshToken}`,
+                  },
+                }
+              );
+              refreshPromises.set(refreshToken, p);
+              try {
+                return await p;
+              } finally {
+                refreshPromises.delete(refreshToken);
+              }
+            })();
 
-          console.log("🔄 response from refresh token", response);
+          const response = await refreshPromise;
+
+          console.log("🔄 response from refresh token", response.refreshToken);
 
           cookieStore.set("refresh_token", response.refreshToken, {
             httpOnly: true,

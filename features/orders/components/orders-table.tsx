@@ -68,7 +68,7 @@ function getCustomerId(order: Order) {
   const user = order.userId as OrderUser | undefined;
   if (user && typeof user === "object" && "_id" in user) return user._id;
   if (typeof order.userId === "string") return order.userId;
-  return "-";
+  return "არა ავტორიზებული";
 }
 
 function getProduct(itemProductId: string | ProductSummary) {
@@ -103,14 +103,14 @@ export function OrdersTable({
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Order</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead>Final ID</TableHead>
-              <TableHead>Cust ID</TableHead>
-              <TableHead>User Email</TableHead>
+              <TableHead>სახელი გვარი</TableHead>
+              <TableHead>თარიღი</TableHead>
+              <TableHead>შეკვეთის ID</TableHead>
+              <TableHead>მომხამრებლის ID</TableHead>
+              <TableHead>მომხამრებლის ელ.ფოსტა</TableHead>
 
-              <TableHead>Status</TableHead>
-              <TableHead className="text-right">Total</TableHead>
+              <TableHead>სტატუსი</TableHead>
+              <TableHead className="text-right">ჯამი</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -197,7 +197,7 @@ export function OrdersTable({
                             <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                               <div className="space-y-1">
                                 <div className="text-sm text-muted-foreground">
-                                  Final ID:{" "}
+                                  შეკვეთის ID:{" "}
                                   <span className="font-medium text-foreground">
                                     {expandedOrder.uuid}
                                   </span>
@@ -365,6 +365,11 @@ export function OrdersTable({
                                               {typeof item?.productId ===
                                               "string"
                                                 ? `პროდუქტის Id: ${item?.productId}`
+                                                : null}
+                                              {typeof item?.productId ===
+                                                "object" &&
+                                              "_id" in item?.productId
+                                                ? `პროდუქტის Id: ${item?.productId?._id}`
                                                 : null}
                                             </div>
                                           </div>

@@ -26,4 +26,7 @@ export const API_ROUTES = {
 
   // Orders (admin list)
   ORDERS_ADMIN: "/orders/admin",
+
+  // Settings
+  SETTINGS: "/settings",
 };

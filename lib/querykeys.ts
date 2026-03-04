@@ -102,6 +102,9 @@ const QUERY_KEYS = {
     },
     BY_ID: (id: string) => ["orders", "byId", id],
   },
+  SETTINGS: {
+    ONE: ["settings"],
+  },
 };
 
 export default QUERY_KEYS;
