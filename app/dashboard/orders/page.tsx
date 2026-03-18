@@ -129,7 +129,7 @@ export default function OrdersPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="uuid">ფინას ID</Label>
+                <Label htmlFor="uuid">შეკვეთის ID</Label>
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
@@ -145,7 +145,7 @@ export default function OrdersPage() {
                 </div>
               </div>
 
-              <div className="space-y-2">
+              {/* <div className="space-y-2">
                 <Label htmlFor="id">შეკვეთის ID</Label>
                 <Input
                   id="id"
@@ -156,7 +156,7 @@ export default function OrdersPage() {
                     handleFilterChange();
                   }}
                 />
-              </div>
+              </div> */}
 
               <div className="space-y-2">
                 <Label htmlFor="email">მომხმარებლის ელ.ფოსტა</Label>
