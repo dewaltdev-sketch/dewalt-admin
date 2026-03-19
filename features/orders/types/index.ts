@@ -22,7 +22,6 @@ export interface OrderItem {
   quantity: number;
   unitPrice: number;
   lineTotal: number;
-  _id: string;
 }
 
 export type LocalizedText = { ka: string; en: string };
@@ -37,7 +36,6 @@ export interface ProductSummary {
   price?: number;
   originalPrice?: number;
   discount?: number;
-  inStock?: boolean;
   quantity?: number;
   finaId?: number;
   finaCode?: string;

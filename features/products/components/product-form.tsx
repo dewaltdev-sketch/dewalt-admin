@@ -15,7 +15,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 import UploadImage from "@/components/uploadImage";
 import MultipleImageUpload from "@/components/uploadImage/multiple-upload";
 import type {
@@ -91,7 +90,6 @@ export function ProductForm({
         price: product.price,
         originalPrice: product.originalPrice,
         discount: product.discount,
-        inStock: product.inStock,
         quantity: product.quantity,
         brandId,
         categoryId,
@@ -110,7 +108,6 @@ export function ProductForm({
       price: 0,
       originalPrice: undefined,
       discount: undefined,
-      inStock: true,
       quantity: 0,
       brandId: "",
       categoryId: "",
@@ -182,7 +179,7 @@ export function ProductForm({
   useEffect(() => {
     refetchChildCategories();
     console.log(formik.values.categoryId, "categoryId");
-  }, [formik.values.brandId, formik.values.categoryId]);
+  }, [formik.values.brandId, formik.values.categoryId, refetchChildCategories]);
 
   // Reset form when dialog opens/closes or product changes
   useEffect(() => {
@@ -308,7 +305,6 @@ export function ProductForm({
 
                       if (Number.isFinite(total)) {
                         formik.setFieldValue("quantity", total);
-                        formik.setFieldValue("inStock", total > 0);
                       }
                     } catch {
                       // ignore FINA rest errors; user can fill quantity manually
@@ -317,18 +313,8 @@ export function ProductForm({
                 />
               </div>
 
-              {/* Stock and Quantity */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id="inStock"
-                    checked={formik.values.inStock}
-                    onCheckedChange={(checked) =>
-                      formik.setFieldValue("inStock", checked === true)
-                    }
-                  />
-                  <Label htmlFor="inStock">მარაგშია</Label>
-                </div>
+              {/* Quantity */}
+              <div className="grid grid-cols-1 gap-4">
                 <FormField
                   name="quantity"
                   label="რაოდენობა"
