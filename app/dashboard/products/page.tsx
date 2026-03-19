@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 import { useDebounce } from "@/hooks/useDebaunce";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,6 +16,7 @@ import {
 } from "@/components/ui/card";
 import { ProductsTable } from "@/features/products/components/products-table";
 import { ProductForm } from "@/features/products/components/product-form";
+import { ProductFormErrorFallback } from "@/features/products/components/product-form-error-fallback";
 import { Pagination } from "@/components/pagination";
 import type {
   Product,
@@ -124,6 +126,10 @@ export default function ProductsPage() {
   const deleteProduct = useDeleteProduct();
 
   const products = data?.data || [];
+
+  const handleDialogClose = () => {
+    setIsDialogOpen(false);
+  };
 
   const handleCreate = () => {
     setEditingProduct(undefined);
@@ -466,15 +472,27 @@ export default function ProductsPage() {
         </CardContent>
       </Card>
 
-      <ProductForm
-        isOpen={isDialogOpen}
-        onClose={() => setIsDialogOpen(false)}
-        product={editingProduct}
-        onCreate={handleCreateProduct}
-        onUpdate={handleUpdateProduct}
-        isCreating={createProduct.isPending}
-        isUpdating={updateProduct.isPending}
-      />
+      {isDialogOpen && (
+        <ErrorBoundary
+          resetKeys={[isDialogOpen, editingProduct?._id ?? "new"]}
+          fallbackRender={(props) => (
+            <ProductFormErrorFallback
+              {...props}
+              onClose={handleDialogClose}
+            />
+          )}
+        >
+          <ProductForm
+            isOpen={isDialogOpen}
+            onClose={handleDialogClose}
+            product={editingProduct}
+            onCreate={handleCreateProduct}
+            onUpdate={handleUpdateProduct}
+            isCreating={createProduct.isPending}
+            isUpdating={updateProduct.isPending}
+          />
+        </ErrorBoundary>
+      )}
     </div>
   );
 }

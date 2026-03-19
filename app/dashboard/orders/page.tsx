@@ -98,10 +98,7 @@ export default function OrdersPage() {
           <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
             <div>
               <CardTitle>შეკვეთები</CardTitle>
-              <CardDescription>
-                შეკვეთების სია და ფილტრაცია სტატუსით, Final ID/ID-ით და
-                მომხმარებლის ელ.ფოსტით.
-              </CardDescription>
+              <CardDescription>შეკვეთების სია და ფილტრაცია</CardDescription>
             </div>
           </div>
         </CardHeader>
