@@ -366,10 +366,11 @@ export function OrdersTable({
                                               "string"
                                                 ? `პროდუქტის Id: ${item?.productId}`
                                                 : null}
-                                              {typeof item?.productId ===
+                                              {item?.productId != null &&
+                                              typeof item.productId ===
                                                 "object" &&
-                                              "_id" in item?.productId
-                                                ? `პროდუქტის Id: ${item?.productId?._id}`
+                                              "_id" in item.productId
+                                                ? `პროდუქტის Id: ${item.productId._id}`
                                                 : null}
                                             </div>
                                           </div>
