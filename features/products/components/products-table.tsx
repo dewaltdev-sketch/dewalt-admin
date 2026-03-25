@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import type { Product } from "../types";
 import Image from "next/image";
 import TableRowSkeleton from "./ProductTableRowSkeleton";
+import { SliderSelect } from "./SliderSelect";
 
 interface ProductsTableProps {
   products: Product[];
@@ -42,6 +43,7 @@ export function ProductsTable({
               <TableHead>კატეგორია</TableHead>
               <TableHead>სუბ კატეგორია</TableHead>
               <TableHead>მარაგი</TableHead>
+              <TableHead>სლაიდერში</TableHead>
               <TableHead className="text-right">მოქმედებები</TableHead>
             </TableRow>
           </TableHeader>
@@ -50,7 +52,7 @@ export function ProductsTable({
               <TableRowSkeleton numberOfRows={10} />
             ) : products.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={9} className="h-24 text-center">
+                <TableCell colSpan={10} className="h-24 text-center">
                   პროდუქტები ვერ მოიძებნა.
                 </TableCell>
               </TableRow>
@@ -129,6 +131,12 @@ export function ProductsTable({
                           ? `მარაგშია (${product.quantity})`
                           : "არ არის მარაგში"}
                       </Badge>
+                    </TableCell>
+                    <TableCell>
+                      <SliderSelect
+                        productId={product._id}
+                        currentValue={product.sliderNumber}
+                      />
                     </TableCell>
 
                     <TableCell className="text-right">

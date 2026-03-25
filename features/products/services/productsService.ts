@@ -67,5 +67,12 @@ export const productsService = {
   deleteProduct: {
     delete: (id: string) => productsClient.delete<void>(id),
   },
+  updateSliderNumber: {
+    patch: (id: string, sliderNumber: number | null) =>
+      productsClient.patchById<{ sliderNumber: number | null }, ProductResponse>(
+        `${id}/slider-number`,
+        { sliderNumber }
+      ),
+  },
 };
 

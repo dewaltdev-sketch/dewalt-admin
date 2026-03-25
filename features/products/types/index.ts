@@ -22,6 +22,7 @@ export interface Product {
   brandId: { _id: string; name: LocalizedText; slug: string };
   categoryId: { _id: string; name: LocalizedText; slug: string };
   childCategoryId?: { _id: string; name: LocalizedText; slug: string };
+  sliderNumber?: number | null;
   specs: ProductSpec[];
   createdAt: string;
   updatedAt: string;
