@@ -13,6 +13,7 @@ import {
   useDeleteCategory,
   useCreateCategory,
   useUpdateCategory,
+  useReorderCategories,
 } from "@/features/categories";
 import type {
   Category,
@@ -31,6 +32,7 @@ export default function CategoriesListPage() {
   const createCategory = useCreateCategory();
   const updateCategory = useUpdateCategory();
   const deleteCategory = useDeleteCategory();
+  const reorderCategories = useReorderCategories();
 
   const handleCreate = () => {
     setEditingCategory(undefined);
@@ -46,6 +48,10 @@ export default function CategoriesListPage() {
     if (confirm("დარწმუნებული ხართ, რომ გსურთ ამ კატეგორიის წაშლა?")) {
       deleteCategory.mutate(id);
     }
+  };
+
+  const handleReorder = (categoryIds: string[]) => {
+    reorderCategories.mutate({ categoryIds });
   };
 
   const handleOpenAssignDialog = () => {
@@ -125,6 +131,8 @@ export default function CategoriesListPage() {
           categories={categories || []}
           onEdit={handleEdit}
           onDelete={handleDelete}
+          onReorder={handleReorder}
+          isReordering={reorderCategories.isPending}
         />
       )}
 

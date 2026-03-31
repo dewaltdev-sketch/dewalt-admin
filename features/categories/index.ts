@@ -29,6 +29,7 @@ export { useGetCategoryById } from "./hooks/useGetCategoryById";
 export { useCreateCategory } from "./hooks/useCreateCategory";
 export { useUpdateCategory } from "./hooks/useUpdateCategory";
 export { useDeleteCategory } from "./hooks/useDeleteCategory";
+export { useReorderCategories } from "./hooks/useReorderCategories";
 
 // Hooks - Child Categories
 export { useGetChildCategories } from "./hooks/useGetChildCategories";

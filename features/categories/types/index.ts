@@ -20,6 +20,7 @@ export interface Category {
   slug: string;
   brandIds: Brand[];
   brandId: string;
+  sortOrder: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -84,6 +85,10 @@ export interface SetChildCategoryGroupDto {
   brandId: string;
   categoryId: string;
   childCategoryIds: string[];
+}
+
+export interface ReorderCategoriesDto {
+  categoryIds: string[];
 }
 
 // Response types
