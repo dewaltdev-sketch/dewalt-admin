@@ -65,20 +65,12 @@ export const productSchema = yup.object({
     .of(
       yup.object({
         label: yup.object({
-          ka: yup
-            .string()
-            .required("საჭიროა სპეციფიკაციის სახელწოდების მითითება ქართულად"),
-          en: yup
-            .string()
-            .required("საჭიროა სპეციფიკაციის სახელწოდების მითითება ინგლისურად"),
+          ka: yup.string().optional().default(""),
+          en: yup.string().optional().default(""),
         }),
         value: yup.object({
-          ka: yup
-            .string()
-            .required("საჭიროა სპეციფიკაციის მნიშვნელობის მითითება ქართულად"),
-          en: yup
-            .string()
-            .required("საჭიროა სპეციფიკაციის მნიშვნელობის მითითება ინგლისურად"),
+          ka: yup.string().optional().default(""),
+          en: yup.string().optional().default(""),
         }),
       })
     )
