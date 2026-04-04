@@ -23,6 +23,7 @@ export interface Product {
   categoryId: { _id: string; name: LocalizedText; slug: string };
   childCategoryId?: { _id: string; name: LocalizedText; slug: string };
   sliderNumber?: number | null;
+  sortOrder?: number;
   specs: ProductSpec[];
   createdAt: string;
   updatedAt: string;
@@ -64,6 +65,11 @@ export interface UpdateProductDto {
   categoryId?: string;
   childCategoryId?: string;
   specs?: ProductSpec[];
+}
+
+export interface ReorderProductsDto {
+  productIds: string[];
+  childCategoryId: string;
 }
 
 export type ProductResponse = Product;

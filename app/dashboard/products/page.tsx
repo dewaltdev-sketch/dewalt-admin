@@ -28,6 +28,7 @@ import {
   useCreateProduct,
   useUpdateProduct,
   useDeleteProduct,
+  useReorderProducts,
 } from "@/features/products";
 import {
   useGetBrands,
@@ -59,6 +60,23 @@ export default function ProductsPage() {
   const debouncedSearch = useDebounce(search, 400);
   const debouncedMinPrice = useDebounce(minPrice, 400);
   const debouncedMaxPrice = useDebounce(maxPrice, 400);
+  const hasScopedReorderSelection =
+    brandId !== "all" &&
+    categoryId !== "all" &&
+    childCategoryId !== "all" &&
+    Boolean(brandId) &&
+    Boolean(categoryId) &&
+    Boolean(childCategoryId);
+
+  const isProductReorderEnabled =
+    hasScopedReorderSelection &&
+    search.trim() === "" &&
+    inStockFilter === "all" &&
+    minPrice.trim() === "" &&
+    maxPrice.trim() === "" &&
+    sort === "";
+  const effectivePage = isProductReorderEnabled ? 1 : page;
+  const effectiveLimit = isProductReorderEnabled ? 1000 : limit;
 
   const { data: brands } = useGetBrands();
   const { data: categories } = useGetCategories();
@@ -110,8 +128,8 @@ export default function ProductsPage() {
   }, [effectiveSearch, parsedMinPrice, parsedMaxPrice]);
 
   const { data, isLoading, error } = useGetProducts({
-    page,
-    limit,
+    page: effectivePage,
+    limit: effectiveLimit,
     brandId: brandId || undefined,
     categoryId: categoryId || undefined,
     childCategoryId: childCategoryId || undefined,
@@ -124,6 +142,7 @@ export default function ProductsPage() {
   const createProduct = useCreateProduct();
   const updateProduct = useUpdateProduct();
   const deleteProduct = useDeleteProduct();
+  const reorderProducts = useReorderProducts();
 
   const products = data?.data || [];
 
@@ -145,6 +164,15 @@ export default function ProductsPage() {
     if (confirm("დარწმუნებული ხართ, რომ გსურთ ამ პროდუქტის წაშლა?")) {
       deleteProduct.mutate(id);
     }
+  };
+
+  const handleReorder = (productIds: string[]) => {
+    if (!childCategoryId || childCategoryId === "all") return;
+
+    reorderProducts.mutate({
+      productIds,
+      childCategoryId,
+    });
   };
 
   const handleCreateProduct = async (data: CreateProductDto) => {
@@ -447,15 +475,24 @@ export default function ProductsPage() {
           </div>
 
           {/* Products Table */}
+          {hasScopedReorderSelection && !isProductReorderEnabled ? (
+            <div className="mb-4 rounded-md border border-dashed px-4 py-3 text-sm text-muted-foreground">
+              drag-and-drop რეორდერისთვის დატოვეთ მხოლოდ ბრენდი, კატეგორია და
+              ქვე-კატეგორია. სხვა ფილტრები და სორტირება უნდა იყოს გამორთული.
+            </div>
+          ) : null}
           <ProductsTable
             products={products}
             onEdit={handleEdit}
             onDelete={handleDelete}
             isLoading={isLoading}
+            enableReorder={isProductReorderEnabled}
+            onReorder={handleReorder}
+            isReordering={reorderProducts.isPending}
           />
 
           {/* Pagination */}
-          {data && data.totalPages > 1 && (
+          {!isProductReorderEnabled && data && data.totalPages > 1 && (
             <div className="mt-6 flex items-center justify-between">
               <div className="text-sm text-muted-foreground">
                 ნაჩვენებია {(page - 1) * limit + 1}-დან{" "}

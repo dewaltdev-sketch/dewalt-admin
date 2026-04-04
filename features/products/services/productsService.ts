@@ -4,6 +4,7 @@ import {
   ProductResponse,
   CreateProductDto,
   UpdateProductDto,
+  ReorderProductsDto,
 } from "../types";
 
 const productsClient = createApiClient(API_ROUTES.PRODUCTS);
@@ -73,6 +74,10 @@ export const productsService = {
         `${id}/slider-number`,
         { sliderNumber }
       ),
+  },
+  reorderProducts: {
+    patch: (data: ReorderProductsDto) =>
+      productsClient.patchById<ReorderProductsDto, void>("admin/reorder", data),
   },
 };
 

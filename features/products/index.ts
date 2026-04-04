@@ -14,3 +14,4 @@ export { useGetProductById } from "./hooks/useGetProductById";
 export { useCreateProduct } from "./hooks/useCreateProduct";
 export { useUpdateProduct } from "./hooks/useUpdateProduct";
 export { useDeleteProduct } from "./hooks/useDeleteProduct";
+export { useReorderProducts } from "./hooks/useReorderProducts";
