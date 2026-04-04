@@ -42,7 +42,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-const limit = 20;
+const limit = 40;
 
 export default function ProductsPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -513,10 +513,7 @@ export default function ProductsPage() {
         <ErrorBoundary
           resetKeys={[isDialogOpen, editingProduct?._id ?? "new"]}
           fallbackRender={(props) => (
-            <ProductFormErrorFallback
-              {...props}
-              onClose={handleDialogClose}
-            />
+            <ProductFormErrorFallback {...props} onClose={handleDialogClose} />
           )}
         >
           <ProductForm
