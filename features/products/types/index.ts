@@ -16,6 +16,7 @@ export interface Product {
   price: number;
   originalPrice?: number;
   discount?: number;
+  orderOnly?: boolean;
   quantity: number;
   rating: number;
   reviewCount: number;
@@ -39,6 +40,7 @@ export interface CreateProductDto {
   price: number;
   originalPrice?: number;
   discount?: number;
+  orderOnly?: boolean;
   quantity?: number;
   rating?: number;
   reviewCount?: number;
@@ -58,6 +60,7 @@ export interface UpdateProductDto {
   price?: number;
   originalPrice?: number;
   discount?: number;
+  orderOnly?: boolean;
   quantity?: number;
   rating?: number;
   reviewCount?: number;

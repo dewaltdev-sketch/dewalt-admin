@@ -52,6 +52,7 @@ export const productSchema = yup.object({
     .optional()
     .min(0, "ფასდაკლება არ შეიძლება იყოს უარყოფითი")
     .max(100, "ფასდაკლება უნდა იყოს 0-დან 100-მდე"),
+  orderOnly: yup.boolean().default(false),
   quantity: yup
     .number()
     .required("მარაგის რაოდენობა სავალდებულოა")

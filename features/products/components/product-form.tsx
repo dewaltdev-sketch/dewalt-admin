@@ -4,6 +4,7 @@ import { useEffect, useMemo } from "react";
 import { useFormik, FormikProvider } from "formik";
 import * as yup from "yup";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import {
@@ -91,6 +92,7 @@ export function ProductForm({
         price: product.price,
         originalPrice: product.originalPrice,
         discount: product.discount,
+        orderOnly: product.orderOnly ?? false,
         quantity: product.quantity,
         brandId,
         categoryId,
@@ -109,6 +111,7 @@ export function ProductForm({
       price: 0,
       originalPrice: undefined,
       discount: undefined,
+      orderOnly: false,
       quantity: 0,
       brandId: "",
       categoryId: "",
@@ -324,6 +327,18 @@ export function ProductForm({
                   min={0}
                   step="1"
                 />
+                <div className="flex items-center gap-3 rounded-md border p-3">
+                  <Checkbox
+                    id="orderOnly"
+                    checked={Boolean(formik.values.orderOnly)}
+                    onCheckedChange={(checked) =>
+                      formik.setFieldValue("orderOnly", checked === true)
+                    }
+                  />
+                  <Label htmlFor="orderOnly" className="cursor-pointer">
+                    მხოლოდ შეკვეთითი
+                  </Label>
+                </div>
               </div>
 
               {/* Description */}
