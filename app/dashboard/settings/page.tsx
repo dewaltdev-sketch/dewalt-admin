@@ -24,6 +24,7 @@ type SettingsFormState = {
   contactPhone2: string;
   contactEmail: string;
   contactFacebook: string;
+  contactInstagram: string;
   contactAddressKa: string;
   contactAddressEn: string;
   freeDeliveryEnabled: boolean;
@@ -57,6 +58,7 @@ function SettingsForm({
     contactPhone2: initial.contactPhone2 ?? "",
     contactEmail: initial.contactEmail ?? "",
     contactFacebook: initial.contactFacebook ?? "",
+    contactInstagram: initial.contactInstagram ?? "",
     contactAddressKa: initial.contactAddress?.ka ?? "",
     contactAddressEn: initial.contactAddress?.en ?? "",
     freeDeliveryEnabled: initial.freeDeliveryEnabled ?? true,
@@ -88,6 +90,7 @@ function SettingsForm({
       contactPhone2: form.contactPhone2.trim() || undefined,
       contactEmail: form.contactEmail.trim() || undefined,
       contactFacebook: form.contactFacebook.trim() || undefined,
+      contactInstagram: form.contactInstagram.trim() || undefined,
       contactAddress:
         addrKa.length || addrEn.length ? { ka: addrKa, en: addrEn } : undefined,
       freeDeliveryEnabled: form.freeDeliveryEnabled,
@@ -128,7 +131,7 @@ function SettingsForm({
         <CardHeader>
           <CardTitle>კონტაქტი</CardTitle>
           <CardDescription>
-            ტელეფონები, ელფოსტა, Facebook და მისამართი.
+            ტელეფონები, ელფოსტა, Facebook, Instagram და მისამართი.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -168,6 +171,15 @@ function SettingsForm({
                 placeholder="https://facebook.com/..."
                 value={form.contactFacebook}
                 onChange={onChange("contactFacebook")}
+              />
+            </div>
+            <div className="space-y-2 md:col-span-2">
+              <Label htmlFor="contactInstagram">Instagram</Label>
+              <Input
+                id="contactInstagram"
+                placeholder="https://instagram.com/..."
+                value={form.contactInstagram}
+                onChange={onChange("contactInstagram")}
               />
             </div>
             <div className="space-y-2 md:col-span-2">

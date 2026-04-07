@@ -7,6 +7,7 @@ export interface Settings {
   contactPhone2?: string;
   contactEmail?: string;
   contactFacebook?: string;
+  contactInstagram?: string;
   contactAddress?: { ka: string; en: string };
   aboutTitle?: { ka: string; en: string };
   aboutSubtitle?: { ka: string; en: string };
