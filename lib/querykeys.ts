@@ -110,6 +110,9 @@ const QUERY_KEYS = {
   TERMS: {
     ONE: ["terms"],
   },
+  BRAND_CONTENT: {
+    ONE: ["brand-content"],
+  },
 };
 
 export default QUERY_KEYS;

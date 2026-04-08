@@ -32,4 +32,7 @@ export const API_ROUTES = {
 
   // Terms
   TERMS: "/terms",
+
+  // Brand content
+  BRAND_CONTENT: "/brand-content",
 };

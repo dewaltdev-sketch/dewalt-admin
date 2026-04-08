@@ -23,6 +23,7 @@ import {
   Tag,
   Settings,
   FileText,
+  Building2,
 } from "lucide-react";
 
 import {
@@ -92,6 +93,11 @@ const navigationItems = [
     title: "ტერმსები",
     href: "/dashboard/terms",
     icon: FileText,
+  },
+  {
+    title: "ბრენდების ტექსტები",
+    href: "/dashboard/brand-content",
+    icon: Building2,
   },
 ];
 
