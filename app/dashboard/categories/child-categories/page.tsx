@@ -83,7 +83,11 @@ export default function ChildCategoriesPage() {
           <h1 className="text-2xl font-bold sm:text-3xl">ქვე-კატეგორიები</h1>
           <p className="text-sm text-muted-foreground sm:text-base">
             მართეთ ქვე-კატეგორიები ცალკე და შემდეგ მიაკუთვნეთ ბრენდებსა და
-            კატეგორიებს
+            კატეგორიებს. „ყველა“ სიაში რომ გამოჩნდეს, შექმენით ქვე-კატეგორია
+            სლაგით{" "}
+            <span className="font-mono text-foreground">all</span> — პროდუქტების
+            გვერდზე ეს ფილტრი ქვე-კატეგორიას არ შემოიფარგლება და ყველა ქვე
+            ქვეშ გამოჩნდება.
           </p>
         </div>
         <div className="flex gap-2">
